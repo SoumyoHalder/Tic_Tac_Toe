@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .navbar {
+            background-color: aqua;
+            height: 15vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+
+        .container {
+            background-color: aquamarine;
+            height: 85vh;
+            display: block;
+            justify-content: baseline;
+            position: relative;
+        }
+
+        .playArea {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20%;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+
+        .box:hover {
+            box-shadow: 2px 2px 25px 5px aqua inset;
+            transition-timing-function: ease-in-out;
+            transition-duration: .25s;
+            cursor: pointer;
+        }
+
+        .br-tp-lft {
+            border-top-left-radius: 5px;
+        }
+
+        .br-rgt {
+            border-right: 5px solid black;
+        }
+
+        .br-btm {
+            border-bottom: 5px solid black;
+        }
+
+
+        .player_area {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            
+        }
+
+        .play {
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            max-width: 10%;
+            max-height: 10%;
+            padding: 10px;
+            margin: auto;
+
+        }
+
+        .play:hover {
+            cursor: pointer;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">Tic-Tak-Toe</nav>
+    <div class="container">
+        <div class="playArea">
+            <div id="box1" class="box br-btm br-rgt">1</div>
+            <div id="box2" class="box br-btm br-rgt">2</div>
+            <div id="box3" class="box br-btm">3</div>
+            <div id="box4" class="box br-btm br-rgt">4</div>
+            <div id="box5" class="box br-rgt br-btm">5</div>
+            <div id="box6" class="box br-btm">6</div>
+            <div id="box7" class="box br-rgt">7</div>
+            <div id="box8" class="box br-rgt">8</div>
+            <div id="box9" class="box">9</div>
+        </div>
+
+        <!-- <div class="player_area">
+            <div class="p1">Player X:</div>
+            <div class="p2">Player O:</div>
+        </div>
+        <div class="play" onclick="start()">PLAY</div>
+    </div> -->
+
+    <script>
+        async function start() {
+            const x = await prompt("Enter Player X name :")
+            document.querySelector('.p1').innerHTML = "Player X: " + x;
+            const y = await prompt("Enter Player O name :")
+            document.querySelector('.p2').innerHTML = "Player Y: " + y;
+        }
+
+        let arr = [[], [], []];
+        let cnt=9;
+        async function check(t) {
+            if ((arr[0][0] == arr[1][1] && arr[0][0] == arr[2][2] && arr[0][0] == t) ||
+                (arr[0][2] == arr[1][1] && arr[2][0] == arr[1][1] && arr[1][1] == t)) {
+                if (t) alert("X Won");
+                else alert("O Won")
+                arr = [[], [], []];
+                let tiles = document.getElementsByClassName("box");
+                        for (let i = 0; i < tiles.length; i++) {
+                            tiles[i].innerHTML = "";
+                        }
+                cnt=9;
+            }
+            for (let i = 0; i < 3; i++) {
+                if ((arr[i][0] == arr[i][1] && arr[i][0] == arr[i][2] && arr[i][0] == t) ||
+                    (arr[0][i] == arr[1][i] && arr[0][i] == arr[2][i] && arr[0][i] == t)) {
+                    {
+                        if (t) alert("X Won");
+                        else alert("O Won")
+                        arr = [[], [], []];
+                        console.log(arr);
+                        
+                        cnt=9;
+                    }
+                }
+            }
+                if(cnt==0){ 
+                    alert("Draw!!")
+                    let tiles = document.getElementsByClassName("box");
+                        for (let i = 0; i < tiles.length; i++) {
+                            tiles[i].innerHTML = "";
+                        }
+                        arr = [[], [], []];
+                        cnt=9;
+                
+            }
+
+        }
+        let turn = 1;
+        let t1 = document.querySelector('#box1');
+        t1.addEventListener('click', () => {
+            if(arr[0][0] === undefined || arr[0][0] === null){
+                if (turn) { t1.innerHTML = 'X'; t1.style.color = 'red'; }
+                else { t1.innerHTML = 'O'; t1.style.color = 'green'; }
+                arr[0][0] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t2 = document.querySelector('#box2');
+        t2.addEventListener('click', () => {
+            if(arr[0][1] === undefined || arr[0][1] === null){
+            if (turn) { t2.innerHTML = 'X'; t2.style.color = 'red'; }
+            else { t2.innerHTML = 'O'; t2.style.color = 'green'; }
+            arr[0][1] = turn;
+            check(turn);
+            turn = !turn;}
+            cnt--;
+        })
+        let t3 = document.querySelector('#box3');
+        t3.addEventListener('click', () => {
+            if(arr[0][2] === undefined || arr[0][2] === null){
+                if (turn) { t3.innerHTML = 'X'; t3.style.color = 'red'; }
+                else { t3.innerHTML = 'O'; t3.style.color = 'green'; }
+                arr[0][2] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t4 = document.querySelector('#box4');
+        t4.addEventListener('click', () => {
+            if(arr[1][0] === undefined || arr[1][0] === null){
+                if (turn) { t4.innerHTML = 'X'; t4.style.color = 'red'; }
+                else { t4.innerHTML = 'O'; t4.style.color = 'green'; }
+                arr[1][0] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+                
+            }
+        })
+        let t5 = document.querySelector('#box5');
+        t5.addEventListener('click', () => {
+            if(arr[1][1] === undefined || arr[1][1] === null){
+
+                if (turn) { t5.innerHTML = 'X'; t5.style.color = 'red'; }
+                else { t5.innerHTML = 'O'; t5.style.color = 'green'; }
+                arr[1][1] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t6 = document.querySelector('#box6');
+        t6.addEventListener('click', () => {
+            if(arr[1][2] === undefined || arr[1][2] === null){
+
+                if (turn) { t6.innerHTML = 'X'; t6.style.color = 'red'; }
+                else { t6.innerHTML = 'O'; t6.style.color = 'green'; }
+                arr[1][2] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t7 = document.querySelector('#box7');
+        t7.addEventListener('click', () => {
+            if(arr[2][0] === undefined || arr[2][0] === null){
+
+                if (turn) { t7.innerHTML = 'X'; t7.style.color = 'red'; }
+                else { t7.innerHTML = 'O'; t7.style.color = 'green'; }
+                arr[2][0] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t8 = document.querySelector('#box8');
+        t8.addEventListener('click', () => {
+            if(arr[2][1] === undefined || arr[2][1] === null){
+
+                if (turn) { t8.innerHTML = 'X'; t8.style.color = 'red'; }
+                else { t8.innerHTML = 'O'; t8.style.color = 'green'; }
+                arr[2][1] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+        })
+        let t9 = document.querySelector('#box9');
+        t9.addEventListener('click', () => {
+            if(arr[2][2] === undefined || arr[2][2] === null){
+
+                if (turn) { t9.innerHTML = 'X'; t9.style.color = 'red'; }
+                else { t9.innerHTML = 'O'; t9.style.color = 'green'; }
+                arr[2][2] = turn;
+                check(turn);
+                turn = !turn;
+                cnt--;
+            }
+
+        })
+
+
+    </script>
+</body>
+
+</html>
