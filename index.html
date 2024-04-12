@@ -139,6 +139,7 @@
                             tiles[i].innerHTML = "";
                         }
                 cnt=9;
+                reload();
             }
             for (let i = 0; i < 3; i++) {
                 if ((arr[i][0] == arr[i][1] && arr[i][0] == arr[i][2] && arr[i][0] == t) ||
@@ -150,6 +151,7 @@
                         console.log(arr);
                         
                         cnt=9;
+                        reload();
                     }
                 }
             }
@@ -161,6 +163,7 @@
                         }
                         arr = [[], [], []];
                         cnt=9;
+                    reload();
                 
             }
 
